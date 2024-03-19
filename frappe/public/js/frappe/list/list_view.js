@@ -1013,12 +1013,12 @@ frappe.views.ListView = class ListView extends frappe.views.BaseList {
 	}
 
 	get_like_html(doc) {
-		const ef = this._element_factory;
 		const liked_by = doc._liked_by ? JSON.parse(doc._liked_by) : [];
 		const is_liked = liked_by.includes(frappe.session.user);
 		const title = liked_by.map((u) => frappe.user_info(u).fullname).join(", ");
 
 		const div = document.createElement("div");
+<<<<<<< HEAD
 		const like = ef.get_like_element(doc.name, is_liked, liked_by, title);
 
 		const likes_count = document.createElement("span");
@@ -1027,6 +1027,11 @@ frappe.views.ListView = class ListView extends frappe.views.BaseList {
 
 		div.appendChild(like);
 		div.appendChild(likes_count);
+=======
+		div.appendChild(
+			this._element_factory.get_like_element(doc.name, is_liked, liked_by, title)
+		);
+>>>>>>> cd9f9ab473 (refactor: get_like_html)
 
 		return div.innerHTML;
 	}

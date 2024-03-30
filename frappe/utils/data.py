@@ -299,7 +299,7 @@ def time_diff_in_hours(string_ed_date, string_st_date):
 
 
 def now_datetime():
-	dt = convert_utc_to_system_timezone(datetime.datetime.utcnow())
+	dt = convert_utc_to_system_timezone(datetime.datetime.now(datetime.UTC))
 	return dt.replace(tzinfo=None)
 
 

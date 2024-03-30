@@ -876,7 +876,11 @@ frappe.views.ListView = class ListView extends frappe.views.BaseList {
 			column_html = this.settings.formatters[fieldname](value, df, doc);
 		} else {
 			column_html = {
+<<<<<<< HEAD
 				Subject: this.get_subject_html(doc),
+=======
+				Subject: this.get_subject_element(doc, value_display).innerHTML,
+>>>>>>> f32c3aa3a8 (fix(ListView): In ListView make visible link title value for Subject column (#25569))
 				Field: field_html(),
 			}[col.type];
 		}
@@ -1033,9 +1037,38 @@ frappe.views.ListView = class ListView extends frappe.views.BaseList {
 		return div.innerHTML;
 	}
 
+<<<<<<< HEAD
 	get_subject_html(doc) {
 		let subject_field = this.columns[0].df;
 		let value = doc[subject_field.fieldname];
+=======
+	get_subject_element(doc, title) {
+		const ef = this._element_factory;
+		const div = document.createElement("div");
+		const checkboxspan = ef.get_checkboxspan_element();
+
+		const ellipsisSpan = document.createElement("span");
+		const seen = this.get_seen_class(doc);
+		if (seen) {
+			ellipsisSpan.classList.add("level-item", seen, "ellipsis");
+		}
+
+		div.appendChild(checkboxspan).appendChild(ef.get_checkbox_element(doc.name));
+		div.appendChild(ellipsisSpan).appendChild(
+			ef.get_link_element(
+				doc.name,
+				this.get_form_link(doc),
+				this.get_subject_text(doc, title)
+			)
+		);
+
+		return div;
+	}
+
+	get_subject_text(doc, title) {
+		const subject_field = this.columns[0].df;
+		let value = title || doc[subject_field.fieldname];
+>>>>>>> f32c3aa3a8 (fix(ListView): In ListView make visible link title value for Subject column (#25569))
 		if (this.settings.formatters && this.settings.formatters[subject_field.fieldname]) {
 			let formatter = this.settings.formatters[subject_field.fieldname];
 			value = formatter(value, subject_field, doc);
